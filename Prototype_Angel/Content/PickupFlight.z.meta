@@ -1,0 +1,8 @@
+TextContent = 
+{
+	ZilchScriptBuilder = 
+	{
+		string Name = "PickupFlight",
+		uint64 ResourceId = 55293e76e5b3d228,
+	},
+},

@@ -1,0 +1,24 @@
+class StatDisplay : ZilchComponent
+{
+    var GameSpace:Space = null;
+    
+    function Initialize(init : CogInitializer)
+    {
+        this.GameSpace = this.GameSession.FindSpaceByName("Main");
+        
+        Zero.Connect(this.Space, Events.LogicUpdate, this.OnLogicUpdate);
+    }
+
+    function OnLogicUpdate(event : UpdateEvent)
+    {
+        //this.GameSpace = this.GameSession.FindSpaceByName("Main");
+        
+        //Console.WriteLine("`this.GameSpace`");
+        
+        var aPlayer = this.GameSpace.FindObjectByName("Angel");
+        
+        var tFlight = aPlayer.Health.CurrentHealth;
+        
+        this.Owner.SpriteText.Text = "`tFlight`";
+    }
+}

@@ -1,0 +1,7 @@
+ContentLibrary = 
+{
+	string Name = "Prototype_Angel",
+	uint64 LibraryId = 551d0fce96ff9f44,
+	string SourceControlType = "",
+	bool ReadOnly = false,
+},

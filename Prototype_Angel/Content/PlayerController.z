@@ -1,0 +1,79 @@
+class PlayerController : ZilchComponent
+{
+    
+    var Movement : Real3 = Real3(0, 0, 0);
+    
+    var Direction : Vec3;
+    
+    function Initialize(init : CogInitializer)
+    {
+        Zero.Connect(this.Space, Events.LogicUpdate, this.OnLogicUpdate);
+    }
+
+    function OnLogicUpdate(event : UpdateEvent)
+    {
+        
+        this.Movement = Real3(0, 0, 0);
+        
+        if(this.Owner.SweptController.Grounded)
+        {
+            if(Zero.Keyboard.KeyIsDown(Keys.W))
+            {
+                this.Owner.SweptController.Jump();
+            }
+            else if(Zero.Keyboard.KeyIsDown(Keys.A))
+            {
+                this.Movement.X -= 1.0;
+            }
+            else if(Zero.Keyboard.KeyIsDown(Keys.D))
+            {
+                this.Movement.X += 1.0;
+            }
+            
+            this.Owner.Health.ApplyDamage(-1.0);
+            
+        }
+        
+        
+        
+        if(this.Owner.SweptController.Grounded == false)
+        {
+            //Console.WriteLine("`this.Owner.SweptController.Jumping`");
+            
+            
+            if(Zero.Keyboard.KeyIsDown(Keys.W) && this.Owner.Health.CurrentHealth != 0)
+            {
+                this.Owner.SweptController.JumpUnconditionally();
+                
+                
+                
+                this.Owner.RigidBody.ApplyForce(Real3(0, 100, 0));
+                
+                this.Owner.Health.ApplyDamage(1.0);
+            }
+            if(Zero.Keyboard.KeyIsDown(Keys.A))
+            {
+                //acceleration += 5;
+                //Console.WriteLine("`this.Owner.Transform.Rotation.Z`");
+                this.Movement.X -= 1.0;
+                
+                this.Owner.Transform.RotateAnglesLocal(Real3(0,0, 5 * event.Dt));
+            }
+            if(Zero.Keyboard.KeyIsDown(Keys.D))
+            {
+                //acceleration -= 5;
+                //Console.WriteLine("`this.Owner.Transform.Rotation.Z`");
+                this.Movement.X += 1.0;
+                
+                this.Owner.Transform.RotateAnglesLocal(Real3(0,0, -5 * event.Dt));
+            }
+        }
+        
+        //this.Owner.Transform.Rotation = Quaternion (0.0, 0.0, acceleration, 0.0);
+        
+        //Console.WriteLine("`this.Owner.Health.CurrentHealth`");
+        
+        this.Owner.SweptController.Update(this.Movement, event.Dt);
+
+    }
+}
