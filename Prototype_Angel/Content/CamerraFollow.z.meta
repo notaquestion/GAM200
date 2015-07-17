@@ -1,0 +1,8 @@
+TextContent = 
+{
+	ZilchScriptBuilder = 
+	{
+		string Name = "CamerraFollow",
+		uint64 ResourceId = 55be1d3b0b15d714,
+	},
+},
