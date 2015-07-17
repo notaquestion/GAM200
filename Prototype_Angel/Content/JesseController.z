@@ -1,0 +1,34 @@
+class JesseController : ZilchComponent
+{
+    function Initialize(init : CogInitializer)
+    {
+        Zero.Connect(this.Space, Events.LogicUpdate, this.OnLogicUpdate);
+    }
+
+    function OnLogicUpdate(event : UpdateEvent)
+    {
+        if(Zero.Keyboard.KeyIsDown(Keys.W))
+            {
+                
+                Console.WriteLine(this.Owner.Orientation.WorldUp * 100);
+                
+                //this.Owner.RigidBody.ApplyForce(Real3(0, 100, 0));
+                
+                this.Owner.RigidBody.ApplyForce(this.Owner.Orientation.WorldUp * 500);
+                
+                this.Owner.Health.ApplyDamage(1.0);
+            }
+            
+            if(Zero.Keyboard.KeyIsDown(Keys.A))
+            {
+                
+                this.Owner.Transform.RotateAnglesLocal(Real3(0,0, 5 * event.Dt));
+                Console.WriteLine(Math.ToDegrees(this.Owner.Transform.EulerAngles));
+            }
+            if(Zero.Keyboard.KeyIsDown(Keys.D))
+            {
+                
+                this.Owner.Transform.RotateAnglesLocal(Real3(0,0, -5 * event.Dt));
+            }
+    }
+}

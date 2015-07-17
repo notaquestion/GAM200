@@ -43,11 +43,12 @@ class PlayerController : ZilchComponent
             
             if(Zero.Keyboard.KeyIsDown(Keys.W) && this.Owner.Health.CurrentHealth != 0)
             {
-                this.Owner.SweptController.JumpUnconditionally();
+                //this.Owner.SweptController.JumpUnconditionally();
                 
+                this.Owner.SweptController.RigidBody.ApplyForce(this.Owner.Orientation.WorldUp * 1000000000);
+                Console.WriteLine(this.Owner.Orientation.WorldUp * 100);
                 
-                
-                this.Owner.RigidBody.ApplyForce(Real3(0, 100, 0));
+                //this.Owner.RigidBody.ApplyForce(Real3(0, 100, 0));
                 
                 this.Owner.Health.ApplyDamage(1.0);
             }
@@ -57,7 +58,9 @@ class PlayerController : ZilchComponent
                 //Console.WriteLine("`this.Owner.Transform.Rotation.Z`");
                 this.Movement.X -= 1.0;
                 
+                
                 this.Owner.Transform.RotateAnglesLocal(Real3(0,0, 5 * event.Dt));
+                Console.WriteLine(Math.ToDegrees(this.Owner.Transform.EulerAngles));
             }
             if(Zero.Keyboard.KeyIsDown(Keys.D))
             {

@@ -199,6 +199,9 @@ class SweptController : ZilchComponent
         // and then add jump velocity.
         this.ControllerVelocity -= Math.Project(this.ControllerVelocity, this.WorldUp);
         this.ControllerVelocity += this.WorldUp * this.JumpSpeed;
+        //this.Owner.Orientation.LocalUp
+        
+        
         this.Grounded = false;
         this.Jumping = true;
     }
@@ -211,6 +214,9 @@ class SweptController : ZilchComponent
     function JumpDirectionally(additionalVelocity : Real3)
     {
         this.ControllerVelocity = additionalVelocity + this.WorldUp * this.JumpSpeed;
+        //this.ControllerVelocity = additionalVelocity + this.Owner.Orientation.LocalUp * this.JumpSpeed;
+        
+        Console.WriteLine(this.WorldUp);
         this.Grounded = false;
         this.Jumping = true;
     }
